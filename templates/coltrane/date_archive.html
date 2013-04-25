@@ -1,0 +1,35 @@
+{% load coltrane_tags %}
+<ul class="accordion_level2">
+    <!-- This fetches {{model}} archive menu from the db -->
+    <!-- A lame hardcoding, but it's faster than querying DB for a year every time -->
+    {% get_years as years %}
+    {% for year in years %}  
+        <li>
+            <a href="{% url 'coltrane_entry_archive_year' year %}"> 
+                {{ year }}
+            </a>
+            {% i_get_active_dates of coltrane.{{model}} as nonempty_months that_have pub_date__year=year %}
+            <ul class="accordion_level3">
+                
+                {% for month_pub in nonempty_months %}
+                   <li>
+                        <a href="{% url 'coltrane_entry_archive_month' year month_pub|date:"b" %}">
+                            {{ month_pub|date:"F" }} {{ year }}
+                        </a>
+                       {% i_get_active_dates of coltrane.{{model}} as nonempty_days that_have pub_date__year=year pub_date__month=month_pub.month %}
+                        <ul>
+                            {% for day_pub in nonempty_days %}
+                                <li >
+                                    <a href="{% url 'coltrane_entry_archive_day' year month_pub|date:"b" day_pub.day %}">
+                                        {{ day_pub.day }} {{ month_pub|date:"F" }} {{ year }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>    
+                    </li>
+                    
+                {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+</ul>

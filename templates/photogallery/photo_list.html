@@ -1,0 +1,41 @@
+{% extends "photogallery/photo_base.html" %}
+        
+    
+    
+{% block content %}    
+    <div id="templatemo_content_wrapper">
+        <div id="templatemo_content">
+            
+            <h1>Наша фотогаллерея</h1>
+            
+            
+            
+            <div id="gallery">
+                {% for album in object_list %}
+                    <h3>{{ album.title }}</h3>
+                    
+                    <ul>
+                        {% for photo in album.object_list %}
+                        <li>
+                            <a href="{{ photo.url_img_zoomed_in }}" class="pirobox" title="{{ photo.title }}">
+                                <img src="{{ photo.url_thumbnail_std }}" alt="{{ photo.title }}" />
+                            </a>
+                            <h5>{{ photo.title }}</h5>
+                            <p>{{ photo.excerpt }} <a href="{{photo.get_absolute_url}}">Подробнее</a></p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="cleaner_h30"></div>
+                    
+                {% endfor %}
+    			
+                
+                <div class="cleaner"></div>
+            </div>
+            
+            <div class="cleaner"></div>
+        </div> <!-- end of content -->
+        
+    </div> <!-- end of content_wrapper --> 
+    
+{% endblock %}   

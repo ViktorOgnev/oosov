@@ -1,0 +1,30 @@
+{% extends "photogallery/photo_base.html" %}
+        
+    
+    
+{% block content %}    
+    <div id="templatemo_content_wrapper">
+        <div id="templatemo_content">
+            
+            <h1>Наша фотогаллерея</h1>
+            
+            
+            
+            <div id="gallery">
+                
+                <h3>{{ object.title }}</h3>
+                <img src="{{ object.url_img_zoomed_in }}" alt="{{ object.title }}" class="detail_caption"/>    
+                <div class="detail_caption">
+                    {{ object.description_html|safe }}
+                </div>    
+    			
+                
+                <div class="cleaner"></div>
+            </div>
+            
+            <div class="cleaner"></div>
+        </div> <!-- end of content -->
+        
+    </div> <!-- end of content_wrapper --> 
+    
+{% endblock %}  

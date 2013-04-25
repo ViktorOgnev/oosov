@@ -1,0 +1,125 @@
+{% extends "videogallery/video_base.html" %}
+
+
+
+
+
+{% block content %}
+<div id="templatemo_content_wrapper">
+	<div id="templatemo_content">
+        
+		<div id="main_content">
+            
+            <h2>Видеогаллерея.</h2>
+            
+            <p>Здесь представлен видеоархив организации.</p>
+            
+            <div class="cleaner_h30"></div>
+            {% for video in object_list %}
+                <div class="services_section">
+                    
+                    <h4><a href="{{ video.get_absolute_url }}">{{ video.title }}</a></h4>
+                    
+                    <div class="services_content">
+                        
+                        <div class="left">
+                            <a href="{{ video.get_absolute_url }}">
+                                <img src="{{ video.thumb_url }}" alt="{{ video.title }}" />
+                            </a>
+                        </div>
+                        
+                        <div class="right">
+                            {{ video.excerpt_html|safe}}
+                                
+                        </div>
+                        <div class="cleaner"></div>
+                    </div>
+                    
+                    <div class="cleaner"></div> 
+                    
+                </div>
+            {% endfor %}
+            
+            
+            
+        </div> <!-- end of main_content -->
+        
+        <div id="sidebar">
+            
+            <div id="request_a_quote">
+                
+                <h2>Request a Quote</h2>
+                <p>In ac libero urna. Suspendisse sed odio ut mi auctor blandit. Duis luctus nulla metus.</p>
+                
+                
+                <form method="post" action="">
+                    
+                    {% csrf_token %}
+                    
+                     <!-- Name -->
+                    <p>
+                        {% if form.name.errors %}
+                            <span class="error">
+                                {{ form.name.errors|join:", " }}
+                            </span>
+                        {% endif %}
+                    
+                        <label for="id_name">Name:</label>
+                            {{ form.name }}
+                    
+                    <!-- Email -->
+                    
+                        {% if form.email.errors %}
+                            <span class="error">
+                                {{ form.email.errors|join:", " }}
+                            </span>
+                        {% endif %}
+                    
+                        <label for="id_email">Email:</label>
+                            {{ form.email }}
+                    </p>
+                    <input type="submit" name="Submit" value="" alt="Submit" id="submit_btn" title="Submit" />
+                </form>
+                
+                <div class="cleaner"></div>
+            </div>
+            
+            <div id="sidebar_featured_project">
+                
+                <h3>Featured Project</h3>
+                <div class="left"><img src="images/maker.png" alt="image" /></div>
+                <div class="right">
+                    <h6>Lorem ipsum dolor sit</h6>
+                    <p>Cras purus libero, dapibus nec rutrum in, dapibus nec risus. Ut interdum mi sit amet magna feugiat auctor.</p>
+                </div>
+                
+                <div class="cleaner"></div>
+                
+            </div>
+            
+            <div id="news_section">
+                
+                <h3>User News</h3>
+                
+                <div class="news_box">
+                    <a href="#">Lorem ipsum dolor sit amet consectetur </a>
+                    <p>Maecenas tellus erat, dictum vel semper a, dapibus ac elit. Nunc rutrum pretium porta.</p>
+                </div>
+                
+                <div class="news_box">
+                    <a href="#">Aenean feugiat mattis est nec egestas</a>
+                    <p>Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.</p>
+                </div>
+                
+                <div class="cleaner"></div>     
+            </div>
+            
+            
+        </div> <!-- end of sidebar -->
+        
+		<div class="cleaner"></div>
+    </div> <!-- end of content -->
+    
+</div> <!-- end of content_wrapper --> 
+
+{% endblock content %}

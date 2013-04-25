@@ -1,0 +1,101 @@
+Technical specification for OOSOV website
+
+Main features:.
+    1) Main module with a slider;
+    2) Video module;
+    3) Blog module;
+    4) Photo module;
+    5) Contacts page;
+    6) Administration module;
+
+--------------------------------------------------------------------------------
+General requirements:
+    1) Easy editing prosess, code-skilled person NOT required;
+    2) Good scalability, easy control, management and accessibility
+        of considerable amount of content(Especially photos, articles);
+    3) Solid security properties;
+    4) High stability(serious approach to testing);
+    
+--------------------------------------------------------------------------------    
+
+Module features:
+    0) Common features:
+        0.1) All pages share same header and footer.
+        0.2) Shared header includes heraldics, orgnisation name and horisontal 
+            main menu;
+        0.3) Shared footer includes HM dulicate and copyrights;
+        0.4) Video and Blog modules have a common invitation form on the left side;
+        
+        
+    1) Main module with a slider:
+        1.1) The slider is a central place of the page.
+        1.2) Slider can contain information from any other module
+            - Commom features:
+                    - a description , or its excerpt, if too long;
+                    - "Дальше" button, redirects to the location in a coorresp module;
+                    - A click on an image works as Дальше button;
+            
+            - For a photo it displays : 
+                    - a minified photo itself;
+                    - the name of the photo;
+                    
+            - For a video it displays:
+                    - A minified preview;
+                    
+                    
+            - For an article:
+                    - A minified "icon" of an article;
+        1.3) A manifesto is stored in the db as an article and is hardcode-fetched
+            to the bottom of main page( can be changed into best article or that
+                                                                      of a kind) 
+        1.4) Three infosections display excerpts of selected(or most popular) 
+             articles. "Далее" button redirects to the given articles' page.
+    2) "Video" module:         
+        2.1) Displays 10 rescent videos sorted by date;
+        2.2) Only video links are stored in the DB, the videos themselves are 
+             hosted on youtube;
+        2.3) Has pagination;
+    3) "Blog" module:
+        3.1) Displays 10 rescent posts sorted by date;
+        3.2) Has pagination;
+        
+    4) "Photo" module:
+        4.1) Designed not to have hundreds of photos, 3-5 photos per album(event);
+        4.2) Has poagination (5 albums per page);
+    
+    5) Contacts page:
+        5.1) Includes quick contact form(sends an e-mail to administrator);
+        
+    6) Admin module:
+        6.1) Has a good text editor(including basic img edit);(tinymce)
+        6.2) All the parameters(main features, schema) are editable, updatable;
+        6.3) Has an autoresize functionality for "bad-size" images;(PIL module)
+        
+--------------------------------------------------------------------------------
+
+Database schema:
+    Video:
+        - name
+        - link
+        - description
+        - excerpt
+        - date
+    Entry:
+        - name
+        - description
+        - excerpt
+        - icon
+        - body
+        - body_markup
+        - description_markup
+        - date_published
+        - date_edited
+    Photo:
+        - name
+        - description
+        - excerpt
+        - date_published
+        - album
+        - blob(or link to host) ((mutually exclusive -> link))
+        - link  ((mutually exclusive -> blob))
+    

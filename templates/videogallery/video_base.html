@@ -1,0 +1,12 @@
+{% extends request.is_ajax|yesno:"base_content_ajax.html,osov/base.html" %}
+
+{% block title %}{{ block.super }} | Видеогаллерея. {% endblock %}
+
+
+{% block horis_menu %}
+    {% include "osov/v_horis_menu.html" %}                
+{% endblock %}
+{% block content %}
+
+
+{% endblock content %}
