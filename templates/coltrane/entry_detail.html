@@ -10,7 +10,8 @@
         <h2>{{ object.title }}</h2>
         {{ object.body|safe }}
         <div id="entry_delimiter"></div>
-        <h2>Please share your thoughts about this information</h2>
+        <h2>Пожалуйста, поделитесь Вашим мнением об этой статье</h2>
+        {% csrf_token %}
         {% load comments %}
         {% load markup %}
         {% get_comment_list for object as comment_list %}
@@ -19,6 +20,8 @@
         {{ comment.name }} said:</p>
         {{ comment.comment|markdown:"safe" }}
         {% endfor %}
+        
+        
         {% render_comment_form for object %}
     </div>
 </div>

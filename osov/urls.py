@@ -30,7 +30,7 @@ urlpatterns = patterns('',
     url(r'^/?', 'importanciator.views.render_main', name='home_page'),
     url(r'^thank_you_for_application/?', 
         TemplateView.as_view(template_name="osov/thank_you.html")),
-    (r'^comments/', include('django.contrib.comments.urls')),
+    url(r'^comments/', include('django.contrib.comments.urls')),
     (r'^tinymce/', include('tinymce.urls')),
    
 )

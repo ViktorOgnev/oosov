@@ -41,7 +41,7 @@ def produce_resized_image(photo, size, instance_title, filename_prefix=''):
             th = int(round(nw / pr))
             image = image.resize((nw, th), Image.ANTIALIAS)
             t = int(round(( th - nh ) / 2.0))
-            print((0, t, nw, t + nh))
+            #print((0, t, nw, t + nh))
             image = image.crop((0, t, nw, t + nh))
         else:
             # photo aspect matches the destination ratio

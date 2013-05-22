@@ -14,9 +14,12 @@ class Album(models.Model):
                             generated from title. Must be unique.""")
     description = models.TextField()
     
+    pub_date = pub_date = models.DateTimeField(default=datetime.datetime.now, null=True, blank=True)
+
+    
     
     class Meta:
-        ordering = ['title']
+        ordering = ['pub_date']
         verbose_name_plural = "Photo albums"
         
         
@@ -74,6 +77,9 @@ class Photo(models.Model):
                                                   blank=True, editable=False,
                                                   null=True)
     
+    location = url_thumbnail_std = models.CharField(max_length=250,
+                                                  blank=True, editable=False,
+                                                  null=True)
     
     class Meta:
         

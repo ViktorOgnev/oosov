@@ -1,6 +1,8 @@
 # Django settings for osov project.
 import os.path
-from django_pass import EMAIL_HOST_PASSWORD
+
+#from django_pass import EMAIL_HOST_PASSWORD
+EMAIL_HOST_PASSWORD = ''
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -105,10 +107,11 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',	
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    # Uncomment the next line for simple clickjacking protection:
+    
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
@@ -133,21 +136,20 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
     'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
     'django.contrib.comments',
     'django.contrib.markup',
+    
     'coltrane',
     'photogallery',
     'videogallery',
     'importanciator',
-    'tinymce',
-    'tagging',
-    'endless_pagination',
+    'tinymce', # pip install django-tinymce
+    'tagging', # https://code.google.com/p/django-tagging/downloads/list
+    'endless_pagination', # pip install django-endless-pagination
     'widget_tweaks',
-    'south',
+    'south', # easy_install South
     'mailit',
     
 )
