@@ -1,6 +1,6 @@
 
 nppBackup/
-uploaded_images/
+media/uploaded_images/
 build
 settings.py
 private_settings.py
@@ -26,3 +26,4 @@ media1/
 *.sql
 *.sqlite
 *.db
+
