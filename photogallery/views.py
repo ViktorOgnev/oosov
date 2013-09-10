@@ -9,6 +9,7 @@
 # so that each object has a title and album(a list of photos) property
 from photogallery.models import Album, Photo
 from django.shortcuts import render_to_response
+from coltrane.models import Location
 
 
 class ObjectList():
@@ -31,4 +32,7 @@ def render_albums(request):
             
         result.append(album_obj)
             
-    return render_to_response('photogallery/photo_list.html', {'object_list': result}) 
+    return render_to_response('photogallery/photo_list.html', 
+                              {'object_list': result,
+                               'locations' : Location.objects.all(),
+                               'section': 'photo'}) 

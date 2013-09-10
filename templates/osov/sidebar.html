@@ -1,0 +1,71 @@
+<div id="sidebar">
+    
+    <div id="request_a_quote">
+        
+        <h2>Отправить заявление</h2>
+        <p>Вы можете присоединиться к организации, по запросу будет выслан бланк заявления... </p>
+        
+        
+        <form method="post" action="">
+            
+            {% csrf_token %}
+            
+            <!-- Name -->
+            <p>
+                {% if form.name.errors %}
+                <span class="error">
+                    {{ form.name.errors|join:", " }}
+                </span>
+                {% endif %}
+                
+                <label for="id_name">Имя:</label>
+                {{ form.name }}
+                
+                <!-- Email -->
+                
+                {% if form.email.errors %}
+                <span class="error">
+                    {{ form.email.errors|join:", " }}
+                </span>
+                {% endif %}
+                
+                <label for="id_email">Email:</label>
+                {{ form.email }}
+            </p>
+            <input type="submit" name="Submit" value="" alt="Submit" id="submit_btn" title="Submit" />
+        </form>
+        
+        <div class="cleaner"></div>
+    </div>
+    
+    <div id="sidebar_featured_project">
+        {% load coltrane_tags %}
+        {% get_latest_content coltrane.entry 2 as latest_entries %}
+        <h3>Новые статьи ОО СОВ.</h3>
+        <div class="left"><img src="/static/images/maker.png" alt="image" /></div>
+        {% for entry in latest_entries %}
+        
+        <div class="right">
+            <a href="{{ entry.get_absolute_url }}" ><h6>{{ entry.title }}</h6></a>
+            <p>{{ entry.excerpt }}</p>
+        </div>
+        {% endfor %}
+        
+        <div class="cleaner"></div>
+        
+    </div>
+    
+    <div id="news_section">
+        
+        <h3>Новые видео ОО СОВ.</h3>
+        {% get_latest_content videogallery.video 2 as latest_videos %}
+        {% for video in latest_videos %}
+        <div class="news_box">
+            <a href="{{ video.get_absolute_url }}">{{ video.title}} </a>
+            <p>{{ video.excerpt }}</p>
+        </div>
+        {% endfor %} 
+          
+    </div>
+    
+</div> 

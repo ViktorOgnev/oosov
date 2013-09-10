@@ -15,9 +15,11 @@
         
         
 		<div id="main_content">
+            
             {% load endless %}
-            {% paginate latest %}  
-            {% for entry in latest %}
+            {% paginate object_list %}  
+            
+            {% for entry in object_list %}
             <div class="post_section">
                 
                 <a href="{{ entry.get_absolute_url }}">
@@ -56,61 +58,12 @@
             </div>
             
             {% endfor %}
+            
             {% show_pages %}
+            
         </div> <!-- end of main_content -->
         
-        <div id="sidebar">
-            
-            
-            <div id="request_a_quote">
-                
-                <h2>Отправить заявление</h2>
-                <p>Вы можете присоединиться к организации, по запросу будет выслан бланк заявления... </p>
-                
-                
-                <form action="#" method="post">
-                    <label>Имя</label>
-                    <input type="text" value="" name="q" size="10" class="quote_input" title="name" />
-                    <label>Email</label>
-                    <input type="text" value="" name="q" size="10" class="quote_input" title="email" />
-                    <input type="submit" name="Submit" value="" alt="Submit" id="submit_btn" title="Submit" />
-                </form>
-                
-                <div class="cleaner"></div>
-            </div>
-            
-            <div id="sidebar_featured_project">
-                
-                <h3>Последние Обновления.</h3>
-                <div class="left"><img src="static/images/maker.png" alt="image" /></div>
-                <div class="right">
-                    <h6>Lorem ipsum dolor sit</h6>
-                    <p>Cras purus libero, dapibus nec rutrum in, dapibus nec risus. Ut interdum mi sit amet magna feugiat auctor.</p>
-                </div>
-                
-                <div class="cleaner"></div>
-                
-            </div>
-            
-            <div id="news_section">
-                
-                <h3>Новости от участников.</h3>
-                
-                <div class="news_box">
-                    <a href="#">Lorem ipsum dolor sit amet consectetur </a>
-                    <p>Maecenas tellus erat, dictum vel semper a, dapibus ac elit. Nunc rutrum pretium porta.</p>
-                </div>
-                
-                <div class="news_box">
-                    <a href="#">Aenean feugiat mattis est nec egestas</a>
-                    <p>Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.</p>
-                </div>
-                
-                <div class="cleaner"></div>     
-            </div>
-            
-            
-        </div> <!-- end of sidebar -->
+        {% include "osov/sidebar.html" %}
         
         
 		<div class="cleaner"></div>

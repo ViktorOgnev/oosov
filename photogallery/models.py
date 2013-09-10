@@ -1,9 +1,13 @@
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 from markdown2 import markdown
 from os.path import join, split
+from os import listdir
 import datetime
-from coltrane.aux_utils import get_image_path, produce_resized_image, transliterate
+from coltrane.aux_utils import get_image_path, produce_resized_image, transliterate, \
+                               space_to_underscore
 from osov.settings import GLRY_THUMB_SIZE, GLRY_ZOOM_IN_SIZE, MEDIA_URL, IMG_UPLD_DIR 
+from coltrane.models import Location
 
 
 
@@ -16,11 +20,13 @@ class Album(models.Model):
     
     pub_date = pub_date = models.DateTimeField(default=datetime.datetime.now, null=True, blank=True)
 
-    
+    # featuring location
+    locations = models.ManyToManyField(Location)
     
     class Meta:
         ordering = ['pub_date']
-        verbose_name_plural = "Photo albums"
+        verbose_name = _("Photo album")
+        verbose_name_plural = _("Photo albums")
         
         
     def __unicode__(self):
@@ -33,6 +39,8 @@ class Album(models.Model):
     def live_entry_set(self):
         from coltrane.models import Entry
         return self.entry_set.filter(status=Entry.LIVE_STATUS)
+        
+    
         
 
 class Photo(models.Model):
@@ -80,10 +88,13 @@ class Photo(models.Model):
     location = url_thumbnail_std = models.CharField(max_length=250,
                                                   blank=True, editable=False,
                                                   null=True)
+    # featuring location
+    locations = models.ManyToManyField(Location)
     
     class Meta:
         
-        verbose_name_plural = "Photos"
+        verbose_name_plural = _("Photos")
+        verbose_name = _("Photo")
         ordering = ['-pub_date']
         
     def __unicode__(self):
@@ -102,11 +113,12 @@ class Photo(models.Model):
 
         
         f_i = self.image_file
-        trans_title = transliterate(self.title[0:20])
+        trans_title = space_to_underscore(transliterate(self.title[0:20]))
         
         # Only if there's an image file provided
         if f_i:
             url_path, url_name = split(f_i.url)
+            url_name = space_to_underscore(url_name)
             url_path = join(MEDIA_URL, IMG_UPLD_DIR, trans_title)
             self.url_img_zoomed_in = join(url_path, 'zoom_in_' + url_name)
             self.url_thumbnail_std = join(url_path, 'thumb_' + url_name)
@@ -116,14 +128,19 @@ class Photo(models.Model):
         # If there's an image file provided, let's create a thumbnail for
         # a gallery and for a zoomed view
         if f_i:
-            
-            # For standart representation
-            produce_resized_image(  f_i, GLRY_THUMB_SIZE, trans_title,
-                                    'thumb_'
-                                    )
-            # For Slider
-            produce_resized_image(  f_i, GLRY_ZOOM_IN_SIZE, trans_title,
-                                    'zoom_in_'
+            # Check that we're not doing duplicate work
+            # Ommitting this nested if can lead to some nasty permission issues
+            # in production.
+            directory, filename = split(f_i.path)
+            file_list = listdir(directory)
+            if not u''.join([u'standart_', filename]) in file_list:
+                # For standart representation
+                produce_resized_image(  f_i, GLRY_THUMB_SIZE, trans_title,
+                                        'thumb_'
+                                        )
+                # For Slider
+                produce_resized_image(  f_i, GLRY_ZOOM_IN_SIZE, trans_title,
+                                        'zoom_in_'
                                     )
     
     

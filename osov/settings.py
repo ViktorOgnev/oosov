@@ -1,8 +1,10 @@
 # Django settings for osov project.
 import os.path
+ugettext = _ = lambda s: s
 
 #from django_pass import EMAIL_HOST_PASSWORD
-EMAIL_HOST_PASSWORD = ''
+from osov.private_settings import email_settings
+
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -12,6 +14,8 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
+SEND_BROKEN_LINK_EMAILS = True
+SERVER_EMAIL = "error_reporter@oosov.org"
 
 # The abs path fot the root project directory # os.pardir == ..
 P_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -38,6 +42,14 @@ TIME_ZONE = 'America/Chicago'
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en'
 
+LANGUAGES = (
+    ('ru', _('Russian')),
+    ('en', _('English')),
+)
+
+LOCALE_PATHS = (
+    path('locale'),
+    )
 SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
@@ -105,9 +117,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 MIDDLEWARE_CLASSES = (
-    'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.locale.LocaleMiddleware',	
+   'django.middleware.locale.LocaleMiddleware',
+   'django.middleware.common.CommonMiddleware',	
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -200,6 +212,8 @@ TINYMCE_DEFAULT_CONFIG = {
     'custom_undo_redo_levels': 10,
 }
 
+
+ENDLESS_PAGINATION_PER_PAGE = 5
 # Set image size in diffren parts of an applicatio
 # Locate em all in one directory
 
@@ -211,10 +225,18 @@ IMG_UPLD_DIR = 'uploaded_images'
 YOUTUBE_IMAGE_URL = 'http://img.youtube.com/vi/'
 
 # Email settings
-EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 0
-DEFAULT_FROM_EMAIL = 'your email address'
-EMAIL_HOST_USER = 'ognev.victor@gmail.com'
+# EMAIL_HOST_PASSWORD = email_settings['EMAIL_HOST_PASSWORD']
+# EMAIL_HOST = 'mail.oosov.org'
+# EMAIL_PORT = 26
+# DEFAULT_FROM_EMAIL = 'noreply@oosov.org'
+# EMAIL_HOST_USER = 'noreply@oosov.org'
 
+# EMAIL_USE_TLS = False
+
+EMAIL_HOST_PASSWORD = "!overlord123!"
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL = 'ognev.victor@gmail.com'
+EMAIL_HOST_USER = 'ognev.victor@gmail.com'
 EMAIL_USE_TLS = True
+

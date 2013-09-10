@@ -2,8 +2,9 @@ from django.conf.urls.defaults import *
 from coltrane.models import Category, Entry, Link
 from django.views.generic import dates
 from django.views.generic.list import ListView
-from tagging.models import Tag
-from tagging.views import tagged_object_list
+# from tagging.models import Tag
+# from tagging.views import tagged_object_list
+from coltrane.views import EntryList
 
 entry_view_params = {'queryset': Entry.live.all(), 'date_field': "pub_date"}
 
@@ -12,7 +13,7 @@ urlpatterns = patterns('',
     # Entry URLs
     
     url(r'^/?$',
-            dates.ArchiveIndexView.as_view(**entry_view_params),
+            EntryList.as_view(**entry_view_params),
             name='coltrane_entry_archive_index'),
     url(r'^/(?P<year>\d{4})/?$',
             dates.YearArchiveView.as_view(**entry_view_params),
@@ -59,20 +60,20 @@ urlpatterns = patterns('',
     url(r'^/categories/(?P<slug>[-\w]+)/$', 'coltrane.views.category_detail',
             name='coltrane_category_detail'),
     
-    # Tag URLs
+    # # Tag URLs
     
-    url(r'^/tags/$', ListView.as_view(model=Tag), name='coltrane_tag_list'),
+    # url(r'^/tags/$', ListView.as_view(model=Tag), name='coltrane_tag_list'),
     
-    # url(r'^/tags/entries/(?P<tag>[-\w]+)/$', tagged_object_list(
-            # queryset_or_model=Entry.live.all())(
-            # template_name='coltrane/entries_by_tag.html',
-            # ),
-            # name='entries_by_tag'),
-    # url(r'^/tags/links/(?P<tag>[-\w]+)/$', 'tagging.views.tagged_object_list',
-            # { 'queryset_or_model': Link,
-              # 'template_name': 'coltrane/links_by_tag.html'
-            # }, name='links_by_tag'),
-    url(r'/tags/((?P<tag>[-\w]+)/$)', 'coltrane.views.all_items_by_tag',
-            name='coltrane_all_items_by_tag',) 
+    # # url(r'^/tags/entries/(?P<tag>[-\w]+)/$', tagged_object_list(
+            # # queryset_or_model=Entry.live.all())(
+            # # template_name='coltrane/entries_by_tag.html',
+            # # ),
+            # # name='entries_by_tag'),
+    # # url(r'^/tags/links/(?P<tag>[-\w]+)/$', 'tagging.views.tagged_object_list',
+            # # { 'queryset_or_model': Link,
+              # # 'template_name': 'coltrane/links_by_tag.html'
+            # # }, name='links_by_tag'),
+    # url(r'/tags/((?P<tag>[-\w]+)/$)', 'coltrane.views.all_items_by_tag',
+            # name='coltrane_all_items_by_tag',) 
 
-    )
+     )

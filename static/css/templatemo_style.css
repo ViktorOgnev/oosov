@@ -25,7 +25,13 @@ a:hover {
 }
 
 p { margin: 0px; padding: 0 0 10px 0; }
-img { border: none; }
+img { 
+    border: none;
+    max-width: 800px;
+    max-height: 600px;
+    width: auto;
+    height: auto;
+}
 
 h1, h2, h3, h4, h5 { font-weight: normal; }
 
@@ -95,7 +101,11 @@ cite span { color: #fff; }
 	color: #fff;
 	background: url(/static/images/templatemo_button_hover.png) no-repeat;
 }
-
+.capital_letter{
+    color: #b11f29;
+    display: inline;
+    line-height:85%;
+}
 #templatemo_header_wrapper {
 	width: 100%;
 	margin: 0 auto;
@@ -110,7 +120,7 @@ cite span { color: #fff; }
 
 #templatemo_header  #site_title {
 	float: left;
-	padding: 40px 30px 0;
+    padding: 25px 20px 0;
 }
 
 
@@ -141,7 +151,7 @@ cite span { color: #fff; }
 
 #templatemo_menu {
 	float: right;
-	height: 45px;
+	/* height: 45px; */
 }
 
 
@@ -213,11 +223,14 @@ cite span { color: #fff; }
 	outline: none;
 }
 
-#templatemo_geomenu li a:hover, #templatemo_geomenu li .current {
-	color: #CCFF00;
+#templatemo_geomenu li a:hover, #templatemo_geomenu li a.current {
+	color: #fff;
 	
 }
 
+/* #templatemo_geomenu li a.current{
+    color: #CCFF00;
+} */
 /*end of geografic menu*/
 
 /* slider */

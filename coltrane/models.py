@@ -1,14 +1,19 @@
+
 import datetime
-from os.path import join, splitext, split
 from django.db import models
-from markdown2 import markdown
 from django.conf import settings
+from django.contrib.auth.models import User
+from django.utils.translation import ugettext_lazy as _
+from markdown2 import markdown
+from os.path import join, splitext, split
+from os import listdir
+from osov.settings import SLIDER_THUMBNAIL_SIZE, STANDARD_THUMBNAIL_SIZE, IMG_UPLD_DIR, MEDIA_URL
 from tagging.models import Tag
 from tagging.fields import TagField
-from django.contrib.auth.models import User
 from tinymce import models as tinymce_models
-from coltrane.aux_utils import transliterate, get_image_path, produce_resized_image
-from osov.settings import SLIDER_THUMBNAIL_SIZE, STANDARD_THUMBNAIL_SIZE, IMG_UPLD_DIR, MEDIA_URL
+from coltrane.aux_utils import transliterate, get_image_path, \
+                               produce_resized_image, space_to_underscore
+
 
 #---------- Comment-related imports
 
@@ -42,17 +47,39 @@ Tag.get_absolute_url = models.permalink(
 # Content, Links etc
 # ------------------------------------------------------------------------------
 
-class Category(models.Model):
+class Location(models.Model):
+    
     
     title = models.CharField(max_length=250, help_text='Maximum 250 characters.')
     slug = models.SlugField(unique=True, help_text=""" Suggested value automatically 
+                            generated from title. Must be unique.""")
+    description = models.TextField(blank=True)
+    
+    
+    class Meta:
+        ordering = ['title']
+        verbose_name = _("Location")
+        verbose_name_plural = _("Locations")
+        
+        
+    def __unicode__(self):
+        return self.title
+
+
+
+class Category(models.Model):
+    
+    title = models.CharField(max_length=250, help_text='Maximum 250 characters.')
+    slug = models.SlugField(unique=True, 
+                            help_text=""" Suggested value automatically 
                             generated from title. Must be unique.""")
     description = models.TextField()
     
     
     class Meta:
         ordering = ['title']
-        verbose_name_plural = "Categories"
+        verbose_name = _("Category")
+        verbose_name_plural = _("Categories")
         
         
     def __unicode__(self):
@@ -117,7 +144,9 @@ class Entry(models.Model):
                                help_text= """A short summary of the entry. 
                                Maximum 277 characters. Optional.""")
     
-    body = tinymce_models.HTMLField()
+    body = tinymce_models.HTMLField(blank=True, null=True,
+                                    help_text="""You can use HTML markup - be
+                                    careful!""")
     
     pub_date = models.DateTimeField(default=datetime.datetime.now)
     
@@ -142,10 +171,15 @@ class Entry(models.Model):
     categories = models.ManyToManyField(Category)
     tags = TagField() # tagging module http://code.google.com/p/django-tagging/
     
+    # featuring location
+    
+    locations = models.ManyToManyField(Location)
+    
     
     class Meta:
         
-        verbose_name_plural = "Entries"
+        verbose_name = _("Entry")
+        verbose_name_plural = _("Entries")
         ordering = ['-pub_date']
     
     
@@ -166,9 +200,13 @@ class Entry(models.Model):
         self.day =  int(self.pub_date.strftime("%d"))
         
         ai = self.article_icon
-        trans_title = transliterate(self.title[0:20])
+        trans_title = space_to_underscore(transliterate(self.title[0:20]))
         
         url_path, url_name = split(ai.url)
+        
+        # Get rid of spaces quotes etc
+        url_name = space_to_underscore(url_name)
+        
         url_path = join(MEDIA_URL, IMG_UPLD_DIR, trans_title)
         self.article_icon_thumbnail_slider = join(url_path, 'slider_' + url_name)
         self.article_icon_thumbnail_std = join(url_path, 'standart_' + url_name)
@@ -178,14 +216,22 @@ class Entry(models.Model):
         # If there's an icon provided, let's create a thumbnail for
         # a slider and for ListView
         if ai:
-            
-            # For standart representation
-            produce_resized_image(  ai, STANDARD_THUMBNAIL_SIZE, trans_title,
-                                    'standart_'
-                                    )
-            # For Slider
-            produce_resized_image(  ai, SLIDER_THUMBNAIL_SIZE, trans_title,
-                                    'slider_'
+            # Check that we're not doing duplicate work
+            # Ommitting this nested if can lead to some nasty permission issues
+            # in production.
+            directory, filename = split(ai.path)
+            file_list = listdir(directory)
+             
+            if not u''.join([u'standart_', filename]) in file_list:
+                
+                
+                # For standart representation
+                produce_resized_image(  ai, STANDARD_THUMBNAIL_SIZE, trans_title,
+                                        u'standart_'
+                                        )
+                # For Slider
+                produce_resized_image(  ai, SLIDER_THUMBNAIL_SIZE, trans_title,
+                                        u'slider_'
                                     )
         
         
@@ -232,8 +278,10 @@ class Link(models.Model):
     
     
     class Meta:
-        ordering = ['-pub_date']
         
+        ordering = ['-pub_date']
+        verbose_name = _("Link")
+        verbose_name_plural = _("Links")
     
     def __unicode__(self):
         return self.title
@@ -328,3 +376,7 @@ class EntryModerator(CommentModerator):
         return False
         
 moderator.register(Entry, EntryModerator)
+
+
+    
+    

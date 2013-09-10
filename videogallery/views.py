@@ -1,10 +1,12 @@
 from videogallery.models import Video
 from django.shortcuts import get_object_or_404, render_to_response
 from mailit.views import get_list_or_post_CF
-
+from coltrane.models import Location
 
 def video_list(request):
-    return get_list_or_post_CF(request, Video, 'videogallery/video_list.html' )
+    return get_list_or_post_CF(request, Video, 'videogallery/video_list.html',
+                               {'section':'video',
+                               'locations': Location.objects.all()} )
 
 def video_detail(request, year, month, day, slug):
     import datetime, time

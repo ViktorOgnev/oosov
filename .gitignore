@@ -1,1 +1,28 @@
+
 nppBackup/
+uploaded_images/
+build
+settings.py
+private_settings.py
+media1/
+
+# Compiled python
+*.pyc
+
+# Packages #
+############
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Logs and databases #
+######################
+*.log
+*.sql
+*.sqlite
+*.db

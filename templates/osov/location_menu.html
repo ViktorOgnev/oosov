@@ -1,0 +1,11 @@
+<ul>
+    {% for location in locations %}
+        <li>
+            <a href="/filtered/{{ section }}/{{ location.slug }}"  >
+                {{ location.title }}
+            </a>
+        </li>
+        
+    {% endfor %}
+    
+</ul>

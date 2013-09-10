@@ -11,10 +11,13 @@ from osov.settings import  IMG_UPLD_DIR
 
               
 def get_image_path(instance, filename):
-        instance_subdir = transliterate(instance.title[0:20])
-        return join(IMG_UPLD_DIR, instance_subdir, filename)    
+    instance_subdir = space_to_underscore(transliterate(instance.title[0:20]))
+    return join(IMG_UPLD_DIR, instance_subdir, filename)    
 
-
+def space_to_underscore(string):
+    result = string.replace(' ', '_').replace('%20','_').replace('%22', '_')
+    
+    return result
         
 def produce_resized_image(photo, size, instance_title, filename_prefix=''):
 

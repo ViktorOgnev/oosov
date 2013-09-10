@@ -1,7 +1,9 @@
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 from markdown2 import markdown
 import datetime
 from osov.settings import YOUTUBE_IMAGE_URL
+from coltrane.models import Location
 
 class Video(models.Model):
     
@@ -23,13 +25,17 @@ class Video(models.Model):
     thumb_url = models.CharField(max_length=250, editable=False, blank=True)
     embed_url = models.CharField(max_length=250, editable=False, blank=True)
     
+    # featuring location
+    locations = models.ManyToManyField(Location)
+    
     def __unicode__(self):
         return self.title
     
     
     class Meta:
         
-        verbose_name_plural = "Videos"
+        verbose_name_plural = _("Videos")
+        verbose_name = _("Video")
         ordering = ['-pub_date']
         
     def save(self, force_insert=False, force_update=False):
