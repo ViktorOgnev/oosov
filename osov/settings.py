@@ -6,7 +6,7 @@ ugettext = _ = lambda s: s
 from osov.private_settings import email_settings
 
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -51,6 +51,10 @@ LOCALE_PATHS = (
     path('locale'),
     )
 SITE_ID = 1
+
+# 
+
+ALLOWED_HOSTS = ('oosov.com', 'oosov.org')
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
@@ -118,13 +122,14 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
-   'django.middleware.locale.LocaleMiddleware',
-   'django.middleware.common.CommonMiddleware',	
+    'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.common.CommonMiddleware',	
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 )
 
 ROOT_URLCONF = 'osov.urls'
@@ -181,7 +186,7 @@ LOGGING = {
     },
     'handlers': {
         'mail_admins': {
-            'level': 'ERROR',
+            'level': 'WARNING',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
         }
@@ -189,7 +194,7 @@ LOGGING = {
     'loggers': {
         'django.request': {
             'handlers': ['mail_admins'],
-            'level': 'ERROR',
+            'level': 'WARNING',
             'propagate': True,
         },
     }
@@ -233,7 +238,7 @@ YOUTUBE_IMAGE_URL = 'http://img.youtube.com/vi/'
 
 # EMAIL_USE_TLS = False
 
-EMAIL_HOST_PASSWORD = "!overlord123!"
+EMAIL_HOST_PASSWORD = email_settings['DEVELOPMENT_EMAIL_HOST_PASSWORD']
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL = 'ognev.victor@gmail.com'
