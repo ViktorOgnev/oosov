@@ -6,7 +6,7 @@ ugettext = _ = lambda s: s
 from osov.private_settings import email_settings
 
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -40,7 +40,7 @@ TIME_ZONE = 'America/Chicago'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'ru'
 
 LANGUAGES = (
     ('ru', _('Russian')),
@@ -54,7 +54,7 @@ SITE_ID = 1
 
 # 
 
-ALLOWED_HOSTS = ('oosov.com', 'oosov.org')
+ALLOWED_HOSTS = ('oosov.com', 'oosov.org', 'www.oosov.org')
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
@@ -245,3 +245,4 @@ DEFAULT_FROM_EMAIL = 'ognev.victor@gmail.com'
 EMAIL_HOST_USER = 'ognev.victor@gmail.com'
 EMAIL_USE_TLS = True
 
+SITEMESSAGE_RECEPIENTS = ['ognev.victor@gmail.com',]

@@ -29,8 +29,7 @@ urlpatterns = patterns('',
     # Video section
     url(r'^video', include('videogallery.urls')),
     # Contacts section
-    url(r'^contacts/', TemplateView.as_view(template_name="osov/contacts.html"),
-        name="contacts"),
+    url(r'^contacts/', 'mailit.views.contacts_page', name="contacts"),
     # Main page
     url(r'^/?', 'importanciator.views.render_main', name='home_page'),
     # Filtratioin by location

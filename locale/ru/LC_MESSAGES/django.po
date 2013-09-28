@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-20 11:30+0300\n"
+"POT-Creation-Date: 2013-09-28 15:10-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,59 +19,76 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: coltrane/models.py:59
+#: coltrane/models.py:61
 msgid "Location"
 msgstr "Локация"
 
-#: coltrane/models.py:60
+#: coltrane/models.py:62
 msgid "Locations"
 msgstr "Локации"
 
-#: coltrane/models.py:79
+#: coltrane/models.py:81
 msgid "Category"
 msgstr "Категория"
 
-#: coltrane/models.py:80
+#: coltrane/models.py:82
 msgid "Categories"
 msgstr "Категориии"
 
-#: coltrane/models.py:179
+#: coltrane/models.py:181
 msgid "Entry"
 msgstr "Статья"
 
-#: coltrane/models.py:180
+#: coltrane/models.py:182
 msgid "Entries"
 msgstr "Статьи"
 
-#: coltrane/models.py:269
+#: coltrane/models.py:283
 msgid "Link"
 msgstr "Ссылка"
 
-#: coltrane/models.py:270
+#: coltrane/models.py:284
 msgid "Links"
 msgstr "Ссылки"
 
-#: osov/settings.py:44
+#: mailit/forms.py:8
+msgid "Name"
+msgstr "Имя"
+
+#: mailit/forms.py:9
+msgid "E-Mail"
+msgstr "E-Mail"
+
+#: mailit/forms.py:18
+msgid "Phone"
+msgstr "Телефон"
+
+#: mailit/forms.py:19
+msgid "Message"
+msgstr "Сообщение"
+
+#: osov/settings.py:46
 msgid "Russian"
 msgstr "Русский"
 
-#: osov/settings.py:45
+#: osov/settings.py:47
 msgid "English"
 msgstr "Английский"
 
-#: photogallery/models.py:26
+#: photogallery/models.py:28
 msgid "Photo album"
 msgstr "Фото альбом"
 
-#: photogallery/models.py:27
-msgid "Фото альбомы"
-msgstr "Фото альбомы"
+#: photogallery/models.py:29
+#, fuzzy
+msgid "Photo albums"
+msgstr "Фото альбом"
 
-#: photogallery/models.py:94
+#: photogallery/models.py:96
 msgid "Photos"
 msgstr "Фотографии"
 
-#: photogallery/models.py:95
+#: photogallery/models.py:97
 msgid "Photo"
 msgstr "Фотография"
 
@@ -94,6 +111,14 @@ msgstr "Разлогиниться"
 #: templates/admin/base.html:47
 msgid "Home"
 msgstr "Домашняя"
+
+#: templates/admin/base_site.html:4
+msgid "Django site admin"
+msgstr "Администрирование сайта"
+
+#: templates/admin/base_site.html:21
+msgid "Site administration"
+msgstr "Администрация сайта"
 
 #: templates/coltrane/comments/preview.html:4
 #: templates/coltrane/comments/preview.html:17
@@ -138,3 +163,6 @@ msgstr "Видеозаписи"
 #: videogallery/models.py:38
 msgid "Video"
 msgstr "видеозапись"
+
+#~ msgid "Фото альбомы"
+#~ msgstr "Фото альбомы"
