@@ -5,8 +5,10 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import  render_to_response
 from django.template import RequestContext
 from django.utils.translation import ugettext as _
+from django.utils.translation import activate
 
 from osov.settings import EMAIL_HOST_USER, SITEMESSAGE_RECEPIENTS
+from contacts.models import ContactAddress, ContactPaymentInfo, ContactRepresentatives
 
 from .forms import ContactForm, FastContactForm
 from .models import Mail
@@ -41,6 +43,7 @@ def contacts_page(request, template_name='osov/contacts.html'):
     Renders a 'Contacts' page and processes a built in contact form by sending
     an email with a form's contents to site adminstration.
     """
+    activate('ru')
     context = {}
     if request.method == 'POST':
         form = FastContactForm(data=request.POST)
@@ -51,12 +54,18 @@ def contacts_page(request, template_name='osov/contacts.html'):
             
             send_mail(subject, message, EMAIL_HOST_USER, SITEMESSAGE_RECEPIENTS)
             
-            return HttpResponseRedirect(reverse('contacts'))
+            return HttpResponseRedirect(reverse('contacts_send_success'))
         
     else:
         form = FastContactForm()
     
     context['form'] = form 
+    try:
+        context['address'] = ContactAddress.objects.values().get(pk=1)
+        context['payment'] = ContactPaymentInfo.objects.values().get(pk=1)
+        context['representatives'] = ContactRepresentatives.objects.values().get(pk=1)
+    except:
+        context['contacts_error'] = _("Cannot fetch contatc info from database.")
     context.update(csrf(request))
     return render_to_response(template_name, context,
                               context_instance=RequestContext(request))

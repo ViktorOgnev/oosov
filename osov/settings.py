@@ -168,6 +168,7 @@ INSTALLED_APPS = (
     'widget_tweaks',
     'south', # easy_install South
     'mailit',
+    'contacts',
     
 )
 

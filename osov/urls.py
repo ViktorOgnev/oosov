@@ -30,6 +30,10 @@ urlpatterns = patterns('',
     url(r'^video', include('videogallery.urls')),
     # Contacts section
     url(r'^contacts/', 'mailit.views.contacts_page', name="contacts"),
+    # Succesfully sent fast contast stuff
+    url(r'^contacts-send-success/', 
+        TemplateView.as_view(template_name="osov/contacts_send_success.html"),
+        name="contacts_send_success"),
     # Main page
     url(r'^/?', 'importanciator.views.render_main', name='home_page'),
     # Filtratioin by location

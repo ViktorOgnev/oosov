@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-28 15:10-0500\n"
+"POT-Creation-Date: 2013-10-21 06:39-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,6 +51,40 @@ msgstr "Ссылка"
 msgid "Links"
 msgstr "Ссылки"
 
+#: contacts/models.py:13
+msgid ""
+"You can use HTML markup - be\n"
+"                                    careful!"
+msgstr "Можно использовать HTML-разметку, будте осторожны"
+
+#: contacts/models.py:15
+msgid "Contact information"
+msgstr "Контактная нформация"
+
+#: contacts/models.py:17
+msgid "Date of update"
+msgstr "Дата обновления"
+
+#: contacts/models.py:25
+msgid "Cannot have more than one instance of %"
+msgstr "Запрещено создание нескольких объектов класса %"
+
+#: contacts/models.py:34
+msgid "Address"
+msgstr "Адрес"
+
+#: contacts/models.py:37 contacts/models.py:38
+msgid "Adress"
+msgstr "Адрес"
+
+#: contacts/models.py:43 contacts/models.py:47 contacts/models.py:48
+msgid "Payment Options"
+msgstr "Платёжные реквизиты"
+
+#: contacts/models.py:53 contacts/models.py:56 contacts/models.py:57
+msgid "Representatives"
+msgstr "Представители"
+
 #: mailit/forms.py:8
 msgid "Name"
 msgstr "Имя"
@@ -66,6 +100,10 @@ msgstr "Телефон"
 #: mailit/forms.py:19
 msgid "Message"
 msgstr "Сообщение"
+
+#: mailit/views.py:68
+msgid "Cannot fetch contatc info from database."
+msgstr "Не удалось загрузить контактную информацию"
 
 #: osov/settings.py:46
 msgid "Russian"
