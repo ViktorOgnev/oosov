@@ -16,7 +16,22 @@
         <!-- <script type="text/javascript" src="/static/js/geo_highlight.js"></script> -->
         
         {% block page_specific_scripting %}{% endblock %}
-    </head>
+    
+	<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-46704311-1']);
+  _gaq.push(['_setDomainName', 'oosov.org']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>	
+</head>
     <body>
         <div id="templatemo_header_wrapper">
             <div id="templatemo_header">
